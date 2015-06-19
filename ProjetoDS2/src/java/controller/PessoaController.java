@@ -46,7 +46,9 @@ public class PessoaController extends Controller {
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(this.request.getParameter("nome"));
         pessoa.setSobrenome(this.request.getParameter("sobrenome"));
-        new PessoaDAO().adicionar(pessoa);
+        System.out.println("Nome = "+pessoa.getNome() + "  Sobrenome = "+pessoa.getSobrenome());
+        PessoaDAO pessoaDao = new PessoaDAO();
+        pessoaDao.adicionar(pessoa);
         // momento do redirecionamento
         this.redirect("listar");
     }

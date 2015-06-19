@@ -53,9 +53,10 @@ public class Servlet extends HttpServlet {
                 objectController.setRequest(request);
                 objectController.setResponse(response);          
                 
+                
                 try {
                     // recuperando o metodo que esta vindo pela URL
-                    Method method = classController.getMethod(request.getParameter("method"));
+                    Method method = classController.getMethod(request.getParameter("method"), null);
                     // invocando o metodo before
                     objectController.before();
                     // invocando o metodo
@@ -75,7 +76,7 @@ public class Servlet extends HttpServlet {
                     throw new ServletException("Não há o método " + request.getParameter("method") + " solicitado no controller " + request.getParameter("controller"));
                 } catch (IllegalAccessException ex) {
                     Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } 
             } catch (InstantiationException  e) {
                 throw new ServletException("Na classe " + classController.getName() + " nao existe o metodo...." + request.getParameter("method"));
             } catch (IllegalAccessException ex) {

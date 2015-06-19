@@ -39,8 +39,8 @@ public abstract class Controller {
         this.response = response;
     }
 
-    public void redirect(Class controller, String methodName) {
-        try {
+    public void redirect(Class controller, String methodName) { 
+        try {  
             RequestDispatcher rd = request.getRequestDispatcher("/Servlet?controller=" + controller.getSimpleName().replace("Controller", "").toLowerCase() + "&method=" + methodName);
             rd.forward(request, response);
         } catch (ServletException  ex) {

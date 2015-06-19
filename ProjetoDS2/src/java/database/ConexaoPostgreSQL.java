@@ -7,7 +7,7 @@ public class ConexaoPostgreSQL extends Conexao {
     public static final String PORT = "5432";
     public static final String USER = "postgres";
     public static final String PASSWORD = "postgres";
-    public static final String DATABASE = "prova";
+    public static final String DATABASE = "postgres";
 
     static {
         try {

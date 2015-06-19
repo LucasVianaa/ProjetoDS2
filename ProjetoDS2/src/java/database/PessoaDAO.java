@@ -2,6 +2,8 @@ package database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Pessoa;
 
 public class PessoaDAO {    
@@ -23,10 +25,10 @@ public class PessoaDAO {
             this.buscar = con.getConnection().prepareStatement("select * from pessoa where nome ilike ?;");
             this.listar = con.getConnection().prepareStatement("select * from pessoa order by nome;");
             this.excluir = con.getConnection().prepareStatement("delete from pessoa where id = ?;");
-            this.atualizar = con.getConnection().prepareStatement("update pessoa set nome = ?, sobrenome = ? where id = ?;");
-            this.adicionar = con.getConnection().prepareStatement("insert into pessoa (nome, sobrenome) values (?,?) returning id;");
+            this.atualizar = con.getConnection().prepareStatement("update pessoa set nome = ?, sobrenome = ? where id = ?;"); 
+            this.adicionar = con.getConnection().prepareStatement("insert into pessoa (nome, sobrenome) values (?,?) returning id;");         
         } catch (Exception ex) {
-            System.out.println("Erro conexao!!");
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -64,10 +66,10 @@ public class PessoaDAO {
             this.adicionar.setString(1, pessoa.getNome());
             this.adicionar.setString(2, pessoa.getSobrenome());
             return this.adicionar.execute();
-        } catch (Exception erro) {
-            System.out.println("Erro: insert pessoa 2");
-            return false;
-        }
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        return false;
     }
 
     public void excluir(int id) throws SQLException {
@@ -84,7 +86,7 @@ public class PessoaDAO {
             this.atualizar.execute();
             this.atualizar.close();
             return true;
-        } catch (Exception erro) {
+        } catch (SQLException erro) {
             return false;
         }
     }
