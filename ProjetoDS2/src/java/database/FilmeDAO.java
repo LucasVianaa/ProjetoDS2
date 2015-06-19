@@ -27,8 +27,8 @@ public class FilmeDAO {
             this.buscar = con.getConnection().prepareStatement("select * from filme where titulo ilike ?;");
             this.listar = con.getConnection().prepareStatement("select * from filme order by titulo;");
             this.excluir = con.getConnection().prepareStatement("delete from filme where id = ?;");
-            this.atualizar = con.getConnection().prepareStatement("update filme set titulo = ?, genero = ? where id = ?;"); 
-            this.adicionar = con.getConnection().prepareStatement("insert into filme (titulo, genero) values (?,?) returning id;");         
+            this.atualizar = con.getConnection().prepareStatement("update filme set titulo = ?, genero = ?, duracao = ?, faixa_etaria = ?, sinopse = ?, trailer = ?, diretor = ?, where id = ?;"); 
+            this.adicionar = con.getConnection().prepareStatement("insert into filme (titulo, genero, duracao, faixa_etaria, sinopse, trailer, diretor) values (?,?,?,?,?,?,?) returning id;");         
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -43,6 +43,11 @@ public class FilmeDAO {
             filme.setId(rs.getInt("id"));
             filme.setTitulo(rs.getString("titulo"));
             filme.setGenero(rs.getString("genero"));
+            filme.setDuracao(rs.getInt("duracao"));
+            filme.setFaixaEtaria(rs.getInt("faixa_etaria"));
+            filme.setSinopse(rs.getString("sinopse"));
+            filme.setTrailer(rs.getString("trailer"));
+            filme.setDiretor(rs.getString("diretor"));
         }
         this.obter.close();
         return filme;
@@ -54,7 +59,8 @@ public class FilmeDAO {
         try {
             rs = this.listar.executeQuery();
             while (rs.next()) {
-                todos.add(new Filme(rs.getInt("id"), rs.getString("titulo"), rs.getString("genero")));
+                todos.add(new Filme(rs.getInt("duracao"), rs.getInt("faixa_etaria"), rs.getInt("id"), rs.getString("trailer"), rs.getString("genero"), rs.getString("diretor"), rs.getString("sinopse"), rs.getString("titulo")));
+                
             }
             this.listar.close();
         } catch (SQLException e) {
@@ -67,6 +73,11 @@ public class FilmeDAO {
         try {
             this.adicionar.setString(1, filme.getTitulo());
             this.adicionar.setString(2, filme.getGenero());
+            this.adicionar.setInt(3, filme.getDuracao());
+            this.adicionar.setInt(4, filme.getFaixaEtaria());
+            this.adicionar.setString(5, filme.getSinopse());
+            this.adicionar.setString(6, filme.getTrailer());
+            this.adicionar.setString(7, filme.getDiretor());
             return this.adicionar.execute();
         } catch (SQLException ex) {
             Logger.getLogger(FilmeDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,7 +95,12 @@ public class FilmeDAO {
         try {
             this.atualizar.setString(1, filme.getTitulo());
             this.atualizar.setString(2, filme.getGenero());
-            this.atualizar.setInt(3, filme.getId());
+            this.atualizar.setInt(3, filme.getDuracao());
+            this.atualizar.setInt(4, filme.getFaixaEtaria());
+            this.atualizar.setString(5, filme.getSinopse());
+            this.atualizar.setString(6, filme.getTrailer());
+            this.atualizar.setString(7, filme.getDiretor());
+            this.atualizar.setInt(8, filme.getId());
             this.atualizar.execute();
             this.atualizar.close();
             return true;
