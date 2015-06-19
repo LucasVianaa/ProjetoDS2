@@ -2,9 +2,9 @@
 package model;
 public class Filme {
     private int duracao, faixaEtaria, id;
-    private String trailer, genero, diretor, sinopse;
+    private String trailer, genero, diretor, sinopse, titulo;
 
-    public Filme(int duracao, int faixaEtaria, int id, String trailer, String genero, String diretor, String sinopse) {
+    public Filme(int duracao, int faixaEtaria, int id, String trailer, String genero, String diretor, String sinopse, String titulo) {
         this.duracao = duracao;
         this.faixaEtaria = faixaEtaria;
         this.id = id;
@@ -12,13 +12,20 @@ public class Filme {
         this.genero = genero;
         this.diretor = diretor;
         this.sinopse = sinopse;
+        this.titulo = titulo;
     }
 
     public Filme() {
     }
-    
-    
-    
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     public int getDuracao() {
         return duracao;
     }
