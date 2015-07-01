@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.io.IOException;
@@ -5,11 +6,13 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
+/*
 import model.Pessoa;
 import database.PessoaDAO;
+*/
 
 public class PessoaController extends Controller {
-
+/*
     public void listar() throws SQLException {
         this.request.setAttribute("vetPessoa", new PessoaDAO().listar());
         // logo após será enviado (automaticamente) para /WEB-INF/jsp/pessoa/listar.jsp
@@ -91,4 +94,5 @@ public class PessoaController extends Controller {
            response.getWriter().write("User em branco...");
         }
     }
+    */
 }

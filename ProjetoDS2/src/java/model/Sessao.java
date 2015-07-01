@@ -1,24 +1,50 @@
 
 
 package model;
+
+import java.util.Calendar;
+
 public class Sessao {
     private int id, sala;
     private double precoAdulto, precoEstudante, precoIdoso;
-    private boolean its3d;
-    private String filme, tipo;
+    private boolean its3d, itsLegendado;
+    private Filme filme;
+    private Calendar horaInicio, horaFim;
 
-    public Sessao(int id, int sala, double precoAdulto, double precoEstudante, double precoIdoso, boolean its3d, String filme, String tipo) {
+    public Sessao() {
+    }
+
+    public Sessao(int id, int sala, double precoAdulto, double precoEstudante, double precoIdoso, boolean its3d, boolean itsLegendado, Filme filme, Calendar horaInicio, Calendar horaFim) {
         this.id = id;
         this.sala = sala;
         this.precoAdulto = precoAdulto;
         this.precoEstudante = precoEstudante;
         this.precoIdoso = precoIdoso;
         this.its3d = its3d;
+        this.itsLegendado = itsLegendado;
         this.filme = filme;
-        this.tipo = tipo;
+        this.horaInicio = horaInicio;
+        this.horaFim = horaFim;
     }
 
-    public Sessao() {
+    public Calendar getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(Calendar horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public Calendar getHoraFim() {
+        return horaFim;
+    }
+
+    public void setHoraFim(Calendar horaFim) {
+        this.horaFim = horaFim;
+    }
+
+    public boolean isItsLegendado() {
+        return itsLegendado;
     }
 
     public int getId() {
@@ -69,19 +95,18 @@ public class Sessao {
         this.its3d = its3d;
     }
 
-    public String getFilme() {
+    public Filme getFilme() {
         return filme;
     }
 
-    public void setFilme(String filme) {
+    public void setFilme(Filme filme) {
         this.filme = filme;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setItsLegendado(boolean itsLegendado) {
+        this.itsLegendado = itsLegendado;
     }
+    
+    
 }

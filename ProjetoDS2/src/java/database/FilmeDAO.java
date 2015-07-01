@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Elenco;
 import model.Filme;
 
 public class FilmeDAO {
@@ -27,7 +28,7 @@ public class FilmeDAO {
             this.buscar = con.getConnection().prepareStatement("select * from filme where titulo ilike ?;");
             this.listar = con.getConnection().prepareStatement("select * from filme order by titulo;");
             this.excluir = con.getConnection().prepareStatement("delete from filme where id = ?;");
-            this.atualizar = con.getConnection().prepareStatement("update filme set titulo = ?, genero = ?, duracao = ?, faixa_etaria = ?, sinopse = ?, trailer = ?, diretor = ?, where id = ?;"); 
+            this.atualizar = con.getConnection().prepareStatement("update filme set titulo = ?, genero = ?, duracao = ?, faixa_etaria = ?, sinopse = ?, trailer = ?, diretor = ? where id = ?;"); 
             this.adicionar = con.getConnection().prepareStatement("insert into filme (titulo, genero, duracao, faixa_etaria, sinopse, trailer, diretor) values (?,?,?,?,?,?,?) returning id;");         
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -59,7 +60,9 @@ public class FilmeDAO {
         try {
             rs = this.listar.executeQuery();
             while (rs.next()) {
-                todos.add(new Filme(rs.getInt("duracao"), rs.getInt("faixa_etaria"), rs.getInt("id"), rs.getString("trailer"), rs.getString("genero"), rs.getString("diretor"), rs.getString("sinopse"), rs.getString("titulo")));
+                ElencoDAO elencoDao = new ElencoDAO();
+                Elenco elenco = elencoDao.obter(rs.getInt("id"));
+                todos.add(new Filme(rs.getInt("duracao"), rs.getInt("faixa_etaria"), rs.getInt("id"), rs.getString("trailer"), rs.getString("genero"), rs.getString("diretor"), rs.getString("sinopse"), rs.getString("titulo"), elenco));
                 
             }
             this.listar.close();
@@ -108,11 +111,7 @@ public class FilmeDAO {
             return false;
         }
     }
-
-    public boolean autenticar(String login, String senha) {
-        return login.equals("admin") && senha.equals("123");
-    }
-
+    
     public Filme buscar(String titulo) throws SQLException {
         this.buscar.setString(1, "%"+titulo.trim()+"%");
         ResultSet rs = this.buscar.executeQuery();
@@ -121,6 +120,11 @@ public class FilmeDAO {
             filme.setId(rs.getInt("id"));
             filme.setTitulo(rs.getString("titulo"));
             filme.setGenero(rs.getString("genero"));
+            filme.setDuracao(rs.getInt("duracao"));
+            filme.setFaixaEtaria(rs.getInt("faixa_etaria"));
+            filme.setSinopse(rs.getString("sinopse"));
+            filme.setTrailer(rs.getString("trailer"));
+            filme.setDiretor(rs.getString("diretor"));
         }
         this.buscar.close();
         return filme;
