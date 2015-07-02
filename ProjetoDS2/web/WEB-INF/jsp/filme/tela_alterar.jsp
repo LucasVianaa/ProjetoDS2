@@ -16,6 +16,7 @@
         </script>
     </head>
     <body>
+        <c:out value="${filme.elenco}" />
           <form method="post" action="Servlet?controller=filme&method=alterar">
               <input type="hidden" name="idFilme" value="${filme.id}">
               Titulo:<input type="text" name="titulo" value="${filme.titulo}"><br>
@@ -26,8 +27,9 @@
               Duracao(minutos): <input type="text" name="duracao" value="${filme.duracao}"><br>
               Sinopse:<input type="text" name="sinopse" value="${filme.sinopse}"><br>
               <table id="elenco">
-                  <c:forEach items="${filme.elenco.atores}" var="ator">
-                        <tr><td>Nome ator:<input type="text" name="elenco" value="${ator}"></td><tr>
+                  <c:forEach items="${filme.elenco}" var="placeholder">
+                        <tr><td>Nome ator:<input type="text" name="elenco" value="${placeholder.ator}"></td><tr>
+                            <input type="hidden" name="idElenco" value="${placeholder.id}">
                   </c:forEach>
               </table>
               <input type="submit">

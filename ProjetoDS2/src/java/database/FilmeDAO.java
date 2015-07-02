@@ -80,6 +80,7 @@ public class FilmeDAO {
             List<Elenco> elenco = elencoDao.obter(rs.getInt("id"));
             filme.setElenco(elenco);
             
+            
         }
         
         this.obter.close();

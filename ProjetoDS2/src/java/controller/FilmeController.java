@@ -4,6 +4,7 @@ package controller;
 import database.ElencoDAO;
 import database.FilmeDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +14,9 @@ import model.Elenco;
 import model.Filme;
 
 public class FilmeController extends Controller{
-    public void tela_editar() throws ServletException, IOException, SQLException {
+    public void tela_alterar() throws ServletException, IOException, SQLException {
         this.request.setAttribute("filme", new FilmeDAO().obter(Integer.parseInt(this.request.getParameter("id"))));
-        
+      
     }
     public void tela_adicionar() throws ServletException, IOException, SQLException {
         //redirect pra tela_adicionar
@@ -41,6 +42,7 @@ public class FilmeController extends Controller{
         }
 
         for (int i = 0;i < atores.size();i++) {
+            elencoDao = new ElencoDAO();
             Elenco elenco = new Elenco();
             elenco.setAtor(atores.get(i));
             elenco.setId(ids.get(i));

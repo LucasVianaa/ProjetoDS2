@@ -46,6 +46,7 @@ public class ElencoDAO {
             String ator = rs.getString("nome_ator");
             linha.setId(rs.getInt("id"));
             linha.setAtor(ator);
+            elenco.add(linha);
         }
         this.obter.close();
         return elenco;
