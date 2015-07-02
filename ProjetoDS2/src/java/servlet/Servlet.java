@@ -1,11 +1,9 @@
 package servlet;
 
 import controller.Controller;
-import database.SessaoDAO;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -14,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Sessao;
 
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
@@ -70,7 +67,7 @@ public class Servlet extends HttpServlet {
                     try {
                         if (objectController.isHasPageJsp()){
                             RequestDispatcher rd = request.getRequestDispatcher(Controller.URL_VIEW + request.getParameter("controller") + "/" + request.getParameter("method") + ".jsp");
-                            rd.forward(request, response);
+                            rd.forward(request, response);                          
                         }
                     } catch (ServletException  e) {
                        throw new ServletException("Não há a página " + request.getParameter("method") + " dentro do diretório  " + request.getParameter("controller"));

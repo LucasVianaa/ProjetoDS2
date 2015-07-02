@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Elenco;
+import model.Filme;
 public class ElencoDAO {
     private PreparedStatement buscarPorFilmeENome;
     private PreparedStatement obter;
@@ -33,12 +34,14 @@ public class ElencoDAO {
 
     }
 
-    public Elenco obter(int id) throws SQLException {
-        this.obter.setInt(1, id);
+    public Elenco obter(int idFilme) throws SQLException {
+        this.obter.setInt(1, idFilme);
         ResultSet rs = this.obter.executeQuery();
         Elenco elenco = new Elenco();
-        FilmeDAO filmeDao = new FilmeDAO();
-        elenco.setFilme(filmeDao.obter(id));
+        
+        Filme filme = new FilmeDAO().obter(idFilme);
+        elenco.setFilme(filme);
+        
         List<String> atores = new ArrayList();
         while(rs.next()){
             atores.add(rs.getString("nome_ator"));

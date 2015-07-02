@@ -1,45 +1,52 @@
 
 package controller;
 
+import database.AdministradorDAO;
+import database.FilmeDAO;
+import database.SessaoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
+import model.Sessao;
 /*
 import model.Pessoa;
 import database.PessoaDAO;
 */
 
-public class PessoaController extends Controller {
-/*
+public class AdministradorController extends Controller {
+
     public void listar() throws SQLException {
-        this.request.setAttribute("vetPessoa", new PessoaDAO().listar());
+      /*  this.request.setAttribute("vetPessoa", new PessoaDAO().listar());
         // logo após será enviado (automaticamente) para /WEB-INF/jsp/pessoa/listar.jsp
+              */
     }
 
     public void autenticar() throws SQLException, IOException {
-        PrintWriter out;
-        out = this.response.getWriter();
+        AdministradorDAO administradorDao = new AdministradorDAO();
+       
         HttpSession session = this.request.getSession(true);
         session.setAttribute("login", this.request.getParameter("login"));
         session.setAttribute("senha", this.request.getParameter("senha"));
-        out.println("Login:" + this.request.getParameter("login"));
-        out.println("Senha:" + this.request.getParameter("senha"));
-        out.println("Autenticou?:" + new PessoaDAO().autenticar(this.request.getParameter("login"), this.request.getParameter("senha")));
-        // caso eu determine que não ha nem redirecionamento nem pagina jsp
-        this.hasPageJsp = false;
+        
+        if(administradorDao.autenticar(this.request.getParameter("login"), this.request.getParameter("senha"))){
+            this.redirect("menuAdmin");
+        }
     }
 
-    public void tela_adicionar() throws ServletException, IOException {
-        // irá cair para a tela_adicionar.jsp
+    public void menuAdmin() throws ServletException, IOException, SQLException {
+        this.request.setAttribute("vetSessoes", new SessaoDAO().listar());
+        this.request.setAttribute("vetFilmes", new FilmeDAO().listar());
     }
 
     public void listarPOG() throws ServletException, IOException {
         // somente por teste redirecionei para outro controller
         this.redirect(TestController.class, "test");
     }
-
+/*
     public void tela_editar() throws ServletException, IOException, SQLException {
         this.request.setAttribute("pessoa", new PessoaDAO().obter(Integer.parseInt(this.request.getParameter("id"))));
     }
@@ -93,6 +100,6 @@ public class PessoaController extends Controller {
         } else {
            response.getWriter().write("User em branco...");
         }
-    }
-    */
+    }*/
+    
 }

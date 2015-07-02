@@ -11,7 +11,7 @@ import model.Elenco;
 import model.Filme;
 
 public class FilmeDAO {
-     private PreparedStatement listar;
+    private PreparedStatement listar;
     private PreparedStatement obter;
     private PreparedStatement excluir;
     private PreparedStatement atualizar;
@@ -37,10 +37,13 @@ public class FilmeDAO {
     }
 
     public Filme obter(int id) throws SQLException {
+        
         this.obter.setInt(1, id);
         ResultSet rs = this.obter.executeQuery();
         Filme filme = new Filme();
-        if (rs.next()) {
+        
+        if(rs.next()){
+
             filme.setId(rs.getInt("id"));
             filme.setTitulo(rs.getString("titulo"));
             filme.setGenero(rs.getString("genero"));
@@ -49,7 +52,9 @@ public class FilmeDAO {
             filme.setSinopse(rs.getString("sinopse"));
             filme.setTrailer(rs.getString("trailer"));
             filme.setDiretor(rs.getString("diretor"));
+            
         }
+        
         this.obter.close();
         return filme;
     }
