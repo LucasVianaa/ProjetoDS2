@@ -41,11 +41,6 @@ public class AdministradorController extends Controller {
         this.request.setAttribute("vetSessoes", new SessaoDAO().listar());
         this.request.setAttribute("vetFilmes", new FilmeDAO().listar());
     }
-
-    public void listarPOG() throws ServletException, IOException {
-        // somente por teste redirecionei para outro controller
-        this.redirect(TestController.class, "test");
-    }
 /*
     public void tela_editar() throws ServletException, IOException, SQLException {
         this.request.setAttribute("pessoa", new PessoaDAO().obter(Integer.parseInt(this.request.getParameter("id"))));

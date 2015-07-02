@@ -6,7 +6,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-          <form method="post" action="Servlet?controller=pessoa&method=editar">
+          <form method="post" action="Servlet?controller=filme&method=editar">
               Nome:<input type="text" name="nome" value="${pessoa.nome}">
               Sobrenome: <input type="text" name="sobrenome" value="${pessoa.sobrenome}">
               <input type="hidden" name="id" value="${pessoa.id}">

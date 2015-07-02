@@ -19,10 +19,12 @@
                    <tr>
                        <td>${sessao.sala}</td>
                        <td>${sessao.filme.titulo}</td>
+                       <td> <a href="Servlet?controller=sessao&method=tela_editar&id=${sessao.id}">Editar</a></td>
+                       <td> <a href="Servlet?controller=sessao&method=excluir&id=${sessao.id}">Remover</a></td>
                    </tr>            
                </c:forEach>
            </table>
-            
+            <a href="Servlet?controller=sessao&method=tela_adicionar">Adicionar sessao</a>
             <br>
             
             <table class = "table">
@@ -30,9 +32,12 @@
                    <tr>
                        <td>${filme.sinopse}</td>
                        <td>${filme.titulo}</td>
+                       <td> <a href="Servlet?controller=filme&method=tela_editar&id=${filme.id}">Editar</a></td>
+                       <td> <a href="Servlet?controller=filme&method=excluir&id=${filme.id}">Remover</a></td>
                    </tr>            
                </c:forEach>
            </table>
+            <a href="Servlet?controller=filme&method=tela_adicionar">Adicionar filme</a>
         </div>
     </body>
 </html>

@@ -39,7 +39,8 @@ public class ElencoDAO {
         ResultSet rs = this.obter.executeQuery();
         Elenco elenco = new Elenco();
         
-        Filme filme = new FilmeDAO().obter(idFilme);
+        Filme filme = new Filme();
+        filme.setId(idFilme);
         elenco.setFilme(filme);
         
         List<String> atores = new ArrayList();

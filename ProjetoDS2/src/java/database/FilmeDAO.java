@@ -20,6 +20,7 @@ public class FilmeDAO {
 
     // Conexao
     private ConexaoPostgreSQL con;
+    private PreparedStatement last;
 
     public FilmeDAO() throws SQLException {
         try {
@@ -30,10 +31,35 @@ public class FilmeDAO {
             this.excluir = con.getConnection().prepareStatement("delete from filme where id = ?;");
             this.atualizar = con.getConnection().prepareStatement("update filme set titulo = ?, genero = ?, duracao = ?, faixa_etaria = ?, sinopse = ?, trailer = ?, diretor = ? where id = ?;"); 
             this.adicionar = con.getConnection().prepareStatement("insert into filme (titulo, genero, duracao, faixa_etaria, sinopse, trailer, diretor) values (?,?,?,?,?,?,?) returning id;");         
+            this.last = con.getConnection().prepareStatement("select * from filme order by id desc limit 1;");         
+        
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
 
+    }
+    public Filme getLast() throws SQLException {
+        ResultSet rs = this.last.executeQuery();
+        Filme filme = new Filme();
+        
+        if(rs.next()){
+
+            filme.setId(rs.getInt("id"));
+            filme.setTitulo(rs.getString("titulo"));
+            filme.setGenero(rs.getString("genero"));
+            filme.setDuracao(rs.getInt("duracao"));
+            filme.setFaixaEtaria(rs.getInt("faixa_etaria"));
+            filme.setSinopse(rs.getString("sinopse"));
+            filme.setTrailer(rs.getString("trailer"));
+            filme.setDiretor(rs.getString("diretor"));
+            ElencoDAO elencoDao = new ElencoDAO();
+            Elenco elenco = elencoDao.obter(rs.getInt("id"));
+            filme.setElenco(elenco);
+            
+        }
+        
+        this.last.close();
+        return filme;
     }
 
     public Filme obter(int id) throws SQLException {
@@ -52,6 +78,9 @@ public class FilmeDAO {
             filme.setSinopse(rs.getString("sinopse"));
             filme.setTrailer(rs.getString("trailer"));
             filme.setDiretor(rs.getString("diretor"));
+            ElencoDAO elencoDao = new ElencoDAO();
+            Elenco elenco = elencoDao.obter(rs.getInt("id"));
+            filme.setElenco(elenco);
             
         }
         
