@@ -26,7 +26,7 @@ public class ElencoDAO {
             this.buscarPorFilmeENome = con.getConnection().prepareStatement("select * from elenco where id_filme = ? and nome_ator = ?;");
             this.obter = con.getConnection().prepareStatement("select * from elenco where id_filme = ?;");
             this.excluir = con.getConnection().prepareStatement("delete from elenco where id = ?;");
-            this.atualizar = con.getConnection().prepareStatement("update elenco set nome_ator = ? where id_filme = ?;"); 
+            this.atualizar = con.getConnection().prepareStatement("update elenco set nome_ator = ? where id = ?;"); 
             this.adicionar = con.getConnection().prepareStatement("insert into elenco (id_filme, nome_ator) values (?,?);");         
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -34,31 +34,29 @@ public class ElencoDAO {
 
     }
 
-    public Elenco obter(int idFilme) throws SQLException {
+    public List<Elenco> obter(int idFilme) throws SQLException {
         this.obter.setInt(1, idFilme);
         ResultSet rs = this.obter.executeQuery();
-        Elenco elenco = new Elenco();
-        
-        Filme filme = new Filme();
-        filme.setId(idFilme);
-        elenco.setFilme(filme);
-        
-        List<String> atores = new ArrayList();
+        List<Elenco> elenco = new ArrayList();
         while(rs.next()){
-            atores.add(rs.getString("nome_ator"));
+            Elenco linha = new Elenco();
+            Filme filme = new Filme();
+            filme.setId(idFilme);
+            linha.setFilme(filme);
+            String ator = rs.getString("nome_ator");
+            linha.setId(rs.getInt("id"));
+            linha.setAtor(ator);
         }
-        elenco.setAtores(atores);
         this.obter.close();
         return elenco;
     }
 
     public void adicionar(Elenco elenco) {
         try {
-            for (String ator : elenco.getAtores()) {
+            System.out.println(elenco.getAtor());
                 this.adicionar.setInt(1, elenco.getFilme().getId());
-                this.adicionar.setString(2, ator);
-                this.adicionar.execute();
-            }
+                this.adicionar.setString(2, elenco.getAtor());
+                this.adicionar.execute();     
         } catch (SQLException ex) {
             Logger.getLogger(FilmeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }      
@@ -72,26 +70,13 @@ public class ElencoDAO {
 
     public void editar(Elenco elenco) {
         try {
-            for (String ator : elenco.getAtores()) {
-                this.atualizar.setInt(2, elenco.getFilme().getId());
-                this.atualizar.setString(1, ator);
+            
+                this.atualizar.setString(1, elenco.getAtor());
+                this.atualizar.setInt(2, elenco.getId());
                 this.atualizar.execute();
-            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(FilmeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }      
-    }
-
-
-    public int buscar(int idFilme, String nomeAtor) throws SQLException {
-        this.buscarPorFilmeENome.setInt(1, idFilme);
-        this.buscarPorFilmeENome.setString(1, nomeAtor);
-        ResultSet rs = this.buscarPorFilmeENome.executeQuery();
-        int id = 0;
-        if (rs.next()) {
-            id = rs.getInt("id");
-        }
-        this.buscarPorFilmeENome.close();
-        return id;
     }
 }

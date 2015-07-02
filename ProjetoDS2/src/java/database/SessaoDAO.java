@@ -142,7 +142,6 @@ public class SessaoDAO {
         try {
             String horaInicio = sessao.getHoraInicio().DAY_OF_MONTH+"/"+sessao.getHoraInicio().MONTH+"/"+sessao.getHoraInicio().YEAR+" "+sessao.getHoraInicio().HOUR+":"+sessao.getHoraInicio().MINUTE+":"+sessao.getHoraInicio().SECOND;
             String horaFim = sessao.getHoraFim().DAY_OF_MONTH+"/"+sessao.getHoraFim().MONTH+"/"+sessao.getHoraFim().YEAR+" "+sessao.getHoraFim().HOUR+":"+sessao.getHoraFim().MINUTE+":"+sessao.getHoraFim().SECOND;
-            
             this.atualizar.setString(1, horaInicio);
             this.atualizar.setString(2, horaFim);
             this.atualizar.setInt(3, sessao.getFilme().getId());

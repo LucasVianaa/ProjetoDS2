@@ -1,20 +1,43 @@
 
 package model;
 
-import java.util.List;
+
 
 public class Elenco {
+    private int id;
     private Filme filme;
-    private List<String> atores;
+    private String ator;
 
     public Elenco() {
     }
 
-    public Elenco(Filme filme, List<String> atores) {
-        this.filme = filme;
-        this.atores = atores;
+    public String getAtor() {
+        return ator;
     }
 
+    public void setAtor(String ator) {
+        this.ator = ator;
+    }
+
+    public Elenco(int id, Filme filme, String ator) {
+        this.id = id;
+        this.filme = filme;
+        this.ator = ator;
+    }
+
+    
+    
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     public Filme getFilme() {
         return filme;
     }
@@ -23,13 +46,7 @@ public class Elenco {
         this.filme = filme;
     }
 
-    public List<String> getAtores() {
-        return atores;
-    }
-
-    public void setAtores(List<String> atores) {
-        this.atores = atores;
-    }
+    
     
     
     

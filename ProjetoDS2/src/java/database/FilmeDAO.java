@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Elenco;
@@ -52,9 +53,6 @@ public class FilmeDAO {
             filme.setSinopse(rs.getString("sinopse"));
             filme.setTrailer(rs.getString("trailer"));
             filme.setDiretor(rs.getString("diretor"));
-            ElencoDAO elencoDao = new ElencoDAO();
-            Elenco elenco = elencoDao.obter(rs.getInt("id"));
-            filme.setElenco(elenco);
             
         }
         
@@ -79,7 +77,7 @@ public class FilmeDAO {
             filme.setTrailer(rs.getString("trailer"));
             filme.setDiretor(rs.getString("diretor"));
             ElencoDAO elencoDao = new ElencoDAO();
-            Elenco elenco = elencoDao.obter(rs.getInt("id"));
+            List<Elenco> elenco = elencoDao.obter(rs.getInt("id"));
             filme.setElenco(elenco);
             
         }
@@ -95,7 +93,7 @@ public class FilmeDAO {
             rs = this.listar.executeQuery();
             while (rs.next()) {
                 ElencoDAO elencoDao = new ElencoDAO();
-                Elenco elenco = elencoDao.obter(rs.getInt("id"));
+                List<Elenco> elenco = elencoDao.obter(rs.getInt("id"));
                 todos.add(new Filme(rs.getInt("duracao"), rs.getInt("faixa_etaria"), rs.getInt("id"), rs.getString("trailer"), rs.getString("genero"), rs.getString("diretor"), rs.getString("sinopse"), rs.getString("titulo"), elenco));
                 
             }

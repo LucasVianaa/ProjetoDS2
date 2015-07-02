@@ -1,11 +1,14 @@
 
 package model;
+
+import java.util.List;
+
 public class Filme {
     private int duracao, faixaEtaria, id;
     private String trailer, genero, diretor, sinopse, titulo;
-    private Elenco elenco;
+    private List<Elenco> elenco;
 
-    public Filme(int duracao, int faixaEtaria, int id, String trailer, String genero, String diretor, String sinopse, String titulo, Elenco elenco) {
+    public Filme(int duracao, int faixaEtaria, int id, String trailer, String genero, String diretor, String sinopse, String titulo, List<Elenco> elenco) {
         this.duracao = duracao;
         this.faixaEtaria = faixaEtaria;
         this.id = id;
@@ -16,16 +19,16 @@ public class Filme {
         this.titulo = titulo;
         this.elenco = elenco;
     }
-    
-    
 
-    public Elenco getElenco() {
+    public List<Elenco> getElenco() {
         return elenco;
     }
 
-    public void setElenco(Elenco elenco) {
+    public void setElenco(List<Elenco> elenco) {
         this.elenco = elenco;
     }
+
+    
 
     
 

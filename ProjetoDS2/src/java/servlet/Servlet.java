@@ -64,6 +64,7 @@ public class Servlet extends HttpServlet {
                     // invocando o metodo before
                     objectController.after();           
                     // redirecionando para a pagina com o mesmo nome do método do controller
+                    System.out.println(Controller.URL_VIEW + request.getParameter("controller") + "/" + request.getParameter("method") + ".jsp");
                     try {
                         if (objectController.isHasPageJsp()){
                             RequestDispatcher rd = request.getRequestDispatcher(Controller.URL_VIEW + request.getParameter("controller") + "/" + request.getParameter("method") + ".jsp");

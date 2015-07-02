@@ -15,9 +15,39 @@ import model.Filme;
 public class FilmeController extends Controller{
     public void tela_editar() throws ServletException, IOException, SQLException {
         this.request.setAttribute("filme", new FilmeDAO().obter(Integer.parseInt(this.request.getParameter("id"))));
+        
     }
     public void tela_adicionar() throws ServletException, IOException, SQLException {
         //redirect pra tela_adicionar
+    }
+    public void alterar() throws ServletException, IOException, SQLException {
+        FilmeDAO filmeDao = new FilmeDAO();
+        Filme filme = new Filme();
+        filme.setId(Integer.parseInt(this.request.getParameter("idFilme")));
+        filme.setGenero(this.request.getParameter("genero"));
+        filme.setDiretor(this.request.getParameter("diretor"));
+        filme.setDuracao(Integer.parseInt(this.request.getParameter("duracao")));
+        filme.setFaixaEtaria(Integer.parseInt(this.request.getParameter("faixaEtaria")));
+        filme.setSinopse(this.request.getParameter("sinopse"));
+        filme.setTitulo(this.request.getParameter("titulo"));
+        filme.setTrailer(this.request.getParameter("trailer"));
+        filmeDao.editar(filme);
+        ElencoDAO elencoDao = new ElencoDAO();
+        List<String> atores = new ArrayList();
+        atores.addAll(Arrays.asList(this.request.getParameterValues("elenco")));
+        List<Integer> ids = new ArrayList();
+        for (String parameterValue : this.request.getParameterValues("idElenco")) {
+            ids.add(Integer.parseInt(parameterValue));
+        }
+
+        for (int i = 0;i < atores.size();i++) {
+            Elenco elenco = new Elenco();
+            elenco.setAtor(atores.get(i));
+            elenco.setId(ids.get(i));
+            elenco.setFilme(filmeDao.obter(Integer.parseInt(this.request.getParameter("idFilme"))));
+            elencoDao.editar(elenco);
+        }
+        this.redirect(AdministradorController.class, "menuAdmin");
     }
     
     public void adicionar() throws ServletException, IOException, SQLException {
@@ -34,10 +64,14 @@ public class FilmeController extends Controller{
         ElencoDAO elencoDao = new ElencoDAO();
         List<String> atores = new ArrayList();
         atores.addAll(Arrays.asList(this.request.getParameterValues("elenco")));
-        Elenco elenco = new Elenco();
-        elenco.setAtores(atores);
-        elenco.setFilme(filmeDao.getLast());
-        elencoDao.adicionar(elenco);
+        for (String ator : atores) {
+            filmeDao = new FilmeDAO();
+            Elenco elenco = new Elenco();
+            elenco.setAtor(ator);
+            elenco.setFilme(filmeDao.getLast());
+            elencoDao.adicionar(elenco);
+        }
+        System.out.println("aqui");
         this.redirect(AdministradorController.class, "menuAdmin");
     }
     
