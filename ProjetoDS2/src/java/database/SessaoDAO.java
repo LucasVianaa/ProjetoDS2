@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -113,9 +115,13 @@ public class SessaoDAO {
         try {
             String horaInicio = sessao.getHoraInicio().DAY_OF_MONTH+"/"+sessao.getHoraInicio().MONTH+1+"/"+sessao.getHoraInicio().YEAR+" "+sessao.getHoraInicio().HOUR_OF_DAY+":"+sessao.getHoraInicio().MINUTE+":"+sessao.getHoraInicio().SECOND;
             String horaFim = sessao.getHoraFim().DAY_OF_MONTH+"/"+sessao.getHoraFim().MONTH+"/"+sessao.getHoraFim().YEAR+" "+sessao.getHoraFim().HOUR+":"+sessao.getHoraFim().MINUTE+":"+sessao.getHoraFim().SECOND;
+ 
+            Timestamp timeInicio = new java.sql.Timestamp(sessao.getHoraInicio().getTime().getTime());
+            Timestamp timeFim = new java.sql.Timestamp(sessao.getHoraFim().getTime().getTime());
             
-            this.adicionar.setString(1, horaInicio);
-            this.adicionar.setString(2, horaFim);
+            
+            this.adicionar.setTimestamp(1, timeInicio);
+            this.adicionar.setTimestamp(2, timeFim);
             this.adicionar.setInt(3, sessao.getFilme().getId());
             this.adicionar.setDouble(4, sessao.getPrecoAdulto());
             this.adicionar.setDouble(5, sessao.getPrecoEstudante());

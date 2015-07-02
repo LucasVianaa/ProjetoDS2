@@ -122,7 +122,7 @@ public class FilmeDAO {
     }
 
     public void excluir(int id) throws SQLException {
-        this.excluir.setInt(1, id); // deletando os dependentes
+        this.excluir.setInt(1, id); 
         this.excluir.execute();
         this.excluir.close();
     }

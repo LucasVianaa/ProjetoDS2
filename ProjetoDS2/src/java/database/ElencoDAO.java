@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import model.Elenco;
 import model.Filme;
 public class ElencoDAO {
-    private PreparedStatement buscarPorFilmeENome;
     private PreparedStatement obter;
     private PreparedStatement excluir;
     private PreparedStatement atualizar;
@@ -22,8 +21,7 @@ public class ElencoDAO {
 
     public ElencoDAO() throws SQLException {
         try {
-            this.con = new ConexaoPostgreSQL();
-            this.buscarPorFilmeENome = con.getConnection().prepareStatement("select * from elenco where id_filme = ? and nome_ator = ?;");
+            this.con = new ConexaoPostgreSQL(); 
             this.obter = con.getConnection().prepareStatement("select * from elenco where id_filme = ?;");
             this.excluir = con.getConnection().prepareStatement("delete from elenco where id = ?;");
             this.atualizar = con.getConnection().prepareStatement("update elenco set nome_ator = ? where id = ?;"); 

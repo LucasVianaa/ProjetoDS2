@@ -18,9 +18,17 @@ public class FilmeController extends Controller{
         this.request.setAttribute("filme", new FilmeDAO().obter(Integer.parseInt(this.request.getParameter("id"))));
       
     }
-    public void tela_adicionar() throws ServletException, IOException, SQLException {
-        //redirect pra tela_adicionar
+    public void excluir() throws ServletException, IOException, SQLException {
+        FilmeDAO filmeDao = new FilmeDAO();
+        filmeDao.excluir(Integer.parseInt(this.request.getParameter("id")));
+        this.redirect(AdministradorController.class, "menuAdmin");
+        
     }
+    public void tela_adicionar() throws ServletException, IOException, SQLException {
+        //redireciona
+        
+    }
+    
     public void alterar() throws ServletException, IOException, SQLException {
         FilmeDAO filmeDao = new FilmeDAO();
         Filme filme = new Filme();
@@ -33,7 +41,7 @@ public class FilmeController extends Controller{
         filme.setTitulo(this.request.getParameter("titulo"));
         filme.setTrailer(this.request.getParameter("trailer"));
         filmeDao.editar(filme);
-        ElencoDAO elencoDao = new ElencoDAO();
+        ElencoDAO elencoDao;
         List<String> atores = new ArrayList();
         atores.addAll(Arrays.asList(this.request.getParameterValues("elenco")));
         List<Integer> ids = new ArrayList();
@@ -42,6 +50,7 @@ public class FilmeController extends Controller{
         }
 
         for (int i = 0;i < atores.size();i++) {
+            filmeDao = new FilmeDAO();
             elencoDao = new ElencoDAO();
             Elenco elenco = new Elenco();
             elenco.setAtor(atores.get(i));

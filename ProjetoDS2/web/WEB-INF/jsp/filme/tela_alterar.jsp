@@ -16,7 +16,6 @@
         </script>
     </head>
     <body>
-        <c:out value="${filme.elenco}" />
           <form method="post" action="Servlet?controller=filme&method=alterar">
               <input type="hidden" name="idFilme" value="${filme.id}">
               Titulo:<input type="text" name="titulo" value="${filme.titulo}"><br>
