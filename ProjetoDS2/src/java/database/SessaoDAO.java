@@ -55,7 +55,7 @@ public class SessaoDAO {
             Timestamp stamp2 = rs.getTimestamp("hora_fim");
             Date date2 = new Date(stamp2.getTime());
             Calendar horaFim = Calendar.getInstance();
-            horaInicio.setTime(date2);
+            horaFim.setTime(date2);
             sessoa.setHoraFim(horaFim);
             
             sessoa.setId(rs.getInt("id"));

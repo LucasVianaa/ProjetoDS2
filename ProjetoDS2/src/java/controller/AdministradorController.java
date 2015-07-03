@@ -5,10 +5,9 @@ import database.AdministradorDAO;
 import database.FilmeDAO;
 import database.SessaoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import model.Sessao;
@@ -19,11 +18,6 @@ import database.PessoaDAO;
 
 public class AdministradorController extends Controller {
 
-    public void listar() throws SQLException {
-      /*  this.request.setAttribute("vetPessoa", new PessoaDAO().listar());
-        // logo após será enviado (automaticamente) para /WEB-INF/jsp/pessoa/listar.jsp
-              */
-    }
 
     public void autenticar() throws SQLException, IOException {
         AdministradorDAO administradorDao = new AdministradorDAO();
@@ -40,6 +34,28 @@ public class AdministradorController extends Controller {
     public void menuAdmin() throws ServletException, IOException, SQLException {
         this.request.setAttribute("vetSessoes", new SessaoDAO().listar());
         this.request.setAttribute("vetFilmes", new FilmeDAO().listar());
+        
+        ArrayList<String> dataInicio = new ArrayList();
+        ArrayList<String> dataFim = new ArrayList();
+        ArrayList<String> horaInicio = new ArrayList();
+        ArrayList<String> horaFim = new ArrayList();
+        for(Sessao sessao : new SessaoDAO().listar()){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String totalInicio;
+            totalInicio = sdf.format(sessao.getHoraInicio().getTime());
+            dataInicio.add(totalInicio.split(" ")[0]);
+            horaInicio.add(totalInicio.split(" ")[1]);
+            
+             String totalFim;
+            totalFim = sdf.format(sessao.getHoraFim().getTime());
+            dataFim.add(totalFim.split(" ")[0]);
+            horaFim.add(totalFim.split(" ")[1]);
+            
+        }
+        this.request.setAttribute("dataInicio", dataInicio);
+        this.request.setAttribute("horaInicio", horaInicio);
+        this.request.setAttribute("dataFim", dataFim);
+        this.request.setAttribute("horaFim", horaFim);
     }
 /*
     public void tela_editar() throws ServletException, IOException, SQLException {

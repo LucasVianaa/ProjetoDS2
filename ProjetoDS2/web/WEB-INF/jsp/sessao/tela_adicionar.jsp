@@ -4,35 +4,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="${pageContext.request.contextPath}/css/bootstrap/css/bootstrap.min.css" rel="stylesheet"/> 
         <title>JSP Page</title>
     </head>
     <body>
-        <%--
-            id serial NOT NULL,
-            hora_inicio timestamp without time zone,
-            hora_fim timestamp without time zone,
-            id_filme integer,
-            preco_adulto numeric,
-            preco_estudante numeric,
-            preco_idoso numeric,
-            sala integer,
-            its3d boolean,
-            itslegendado boolean,
-        
-        --%>
+        <div class="container">
         
         <form method="post" action="Servlet?controller=sessao&method=adicionar">
-              Hora inicio:<input type="date" name="data"><input type="time" name="hora"> <br>
+              Hora inicio:<input type="date" name="data" required><input type="time" name="hora" required> <br>
               
-              Filme:<select name ="filme">
+              Filme:<select name ="filme" required>
                 <c:forEach items="${filmes}" var="filme">
                     <option value="${filme.id}">${filme.titulo}</option> 
                 </c:forEach>
               </select><br>
-              Preco para adulto:<input type="number" name="precoAdulto" step="0.01" min="0"><br>
-              Preco para estudante:<input type="number" name="precoEstudante" step="0.01" min="0"><br>
-              Preco para idoso:<input type="number" name="precoIdoso" step="0.01" min="0"><br>
-              Sala:<input type="number" name="sala" min="1"><br>
+              Preco para adulto:<input type="number" name="precoAdulto" step="0.01" min="0" required><br>
+              Preco para estudante:<input type="number" name="precoEstudante" step="0.01" min="0" required><br>
+              Preco para idoso:<input type="number" name="precoIdoso" step="0.01" min="0" required><br>
+              Sala:<input type="number" name="sala" min="1" required><br>
               3D:<input type="radio" name="3d" value="true" checked>Sim
                  <input type="radio" name="3d" value="false">Nao<br>
               Legendado:<input type="radio" name="legendado" value="true" checked>Sim
@@ -40,5 +29,7 @@
               
               <input type="submit">
         </form>  
+            
+        </div>
     </body>
 </html>
