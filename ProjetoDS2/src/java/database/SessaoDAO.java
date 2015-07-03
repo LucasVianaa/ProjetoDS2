@@ -113,9 +113,6 @@ public class SessaoDAO {
     public boolean adicionar(Sessao sessao) {
   
         try {
-            String horaInicio = sessao.getHoraInicio().DAY_OF_MONTH+"/"+sessao.getHoraInicio().MONTH+1+"/"+sessao.getHoraInicio().YEAR+" "+sessao.getHoraInicio().HOUR_OF_DAY+":"+sessao.getHoraInicio().MINUTE+":"+sessao.getHoraInicio().SECOND;
-            String horaFim = sessao.getHoraFim().DAY_OF_MONTH+"/"+sessao.getHoraFim().MONTH+"/"+sessao.getHoraFim().YEAR+" "+sessao.getHoraFim().HOUR+":"+sessao.getHoraFim().MINUTE+":"+sessao.getHoraFim().SECOND;
- 
             Timestamp timeInicio = new java.sql.Timestamp(sessao.getHoraInicio().getTime().getTime());
             Timestamp timeFim = new java.sql.Timestamp(sessao.getHoraFim().getTime().getTime());
             
@@ -144,12 +141,11 @@ public class SessaoDAO {
         this.excluir.close();
     }
 
-    public boolean editar(Sessao sessao) {
-        try {
-            String horaInicio = sessao.getHoraInicio().DAY_OF_MONTH+"/"+sessao.getHoraInicio().MONTH+"/"+sessao.getHoraInicio().YEAR+" "+sessao.getHoraInicio().HOUR+":"+sessao.getHoraInicio().MINUTE+":"+sessao.getHoraInicio().SECOND;
-            String horaFim = sessao.getHoraFim().DAY_OF_MONTH+"/"+sessao.getHoraFim().MONTH+"/"+sessao.getHoraFim().YEAR+" "+sessao.getHoraFim().HOUR+":"+sessao.getHoraFim().MINUTE+":"+sessao.getHoraFim().SECOND;
-            this.atualizar.setString(1, horaInicio);
-            this.atualizar.setString(2, horaFim);
+    public void editar(Sessao sessao) throws SQLException {
+            Timestamp timeInicio = new java.sql.Timestamp(sessao.getHoraInicio().getTime().getTime());
+            Timestamp timeFim = new java.sql.Timestamp(sessao.getHoraFim().getTime().getTime());
+            this.atualizar.setTimestamp(1, timeInicio);
+            this.atualizar.setTimestamp(2, timeFim);
             this.atualizar.setInt(3, sessao.getFilme().getId());
             this.atualizar.setDouble(4, sessao.getPrecoAdulto());
             this.atualizar.setDouble(5, sessao.getPrecoEstudante());
@@ -157,12 +153,11 @@ public class SessaoDAO {
             this.atualizar.setInt(7, sessao.getSala());
             this.atualizar.setBoolean(8, sessao.isIts3d());
             this.atualizar.setBoolean(9, sessao.isItsLegendado());
+            this.atualizar.setInt(10, sessao.getId());
             this.atualizar.execute();
             this.atualizar.close();
-            return true;
-        } catch (SQLException erro) {
-            return false;
-        }
+        
+
     }
     
     public Sessao buscar(int idFilme) throws SQLException {

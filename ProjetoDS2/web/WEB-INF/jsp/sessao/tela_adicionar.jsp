@@ -33,9 +33,9 @@
               Preco para estudante:<input type="number" name="precoEstudante" step="0.01" min="0"><br>
               Preco para idoso:<input type="number" name="precoIdoso" step="0.01" min="0"><br>
               Sala:<input type="number" name="sala" min="1"><br>
-              3D:<input type="radio" name="3d" value="true" checked>Sim<br>
+              3D:<input type="radio" name="3d" value="true" checked>Sim
                  <input type="radio" name="3d" value="false">Nao<br>
-              Legendado:<input type="radio" name="legendado" value="true" checked>Sim<br>
+              Legendado:<input type="radio" name="legendado" value="true" checked>Sim
                         <input type="radio" name="legendado" value="false">Nao<br>
               
               <input type="submit">
