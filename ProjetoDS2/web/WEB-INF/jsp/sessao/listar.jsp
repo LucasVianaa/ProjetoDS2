@@ -20,6 +20,11 @@
                     <th>Preco adulto</th>
                     <th>Preco estudante</th>
                     <th>Preco idoso</th>
+                    <th>Diretor</th>
+                    <th>Faixa etaria</th>
+                    <th>Link trailer</th>
+                    <th>Genero</th>
+                    <th>Elenco</th>
                     <th>3d</th>
                     <th>Legendado/dublado</th>
                     
@@ -33,6 +38,17 @@
                        <td>${sessao.precoAdulto}</td>
                        <td>${sessao.precoEstudante}</td>
                        <td>${sessao.precoIdoso}</td>
+                       <td>${sessao.filme.diretor}</td>
+                       <td>${sessao.filme.faixaEtaria}+</td>
+                       <td>${sessao.filme.trailer}</td>
+                       <td>${sessao.filme.genero}</td>
+                       <td>
+                           
+                       <c:forEach items="${sessao.filme.elenco}" var="elenco">
+                           ${elenco.ator}<br>
+                       </c:forEach>
+                       </td>
+                           
                         <c:choose>    
                             <c:when test="${sessao.its3d==true}">
                              <td>Sim</td>

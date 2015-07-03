@@ -44,6 +44,7 @@ public class Servlet extends HttpServlet {
             if (!Controller.class.isAssignableFrom(classController)) {
                 throw new ServletException("A classe " + name + " não implementa a interface Controller...");
             }
+            
             // objeto da classe
             Controller objectController;
             try {
@@ -57,6 +58,7 @@ public class Servlet extends HttpServlet {
                 try {
                     // recuperando o metodo que esta vindo pela URL
                     Method method = classController.getMethod(request.getParameter("method"), null);
+                    
                     // invocando o metodo before
                     objectController.before();
                     // invocando o metodo

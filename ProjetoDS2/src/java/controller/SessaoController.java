@@ -18,10 +18,7 @@ import model.Sessao;
 public class SessaoController extends Controller{
     
     public void listar() throws ServletException, IOException, SQLException {
-        if(request.getSession().getAttribute("login") == null){
-            RequestDispatcher rd = request.getRequestDispatcher("/index.html");
-            rd.forward(request, response);
-        }else{
+            
             this.request.setAttribute("vetSessoes", new SessaoDAO().listar());
 
             ArrayList<String> dataInicio = new ArrayList();
@@ -35,7 +32,7 @@ public class SessaoController extends Controller{
                 dataInicio.add(totalInicio.split(" ")[0]);
                 horaInicio.add(totalInicio.split(" ")[1]);
 
-                 String totalFim;
+                String totalFim;
                 totalFim = sdf.format(sessao.getHoraFim().getTime());
                 dataFim.add(totalFim.split(" ")[0]);
                 horaFim.add(totalFim.split(" ")[1]);
@@ -45,8 +42,9 @@ public class SessaoController extends Controller{
             this.request.setAttribute("horaInicio", horaInicio);
             this.request.setAttribute("dataFim", dataFim);
             this.request.setAttribute("horaFim", horaFim);
+            
         
-        }
+        
     }
     
     public void tela_alterar() throws ServletException, IOException, SQLException {
