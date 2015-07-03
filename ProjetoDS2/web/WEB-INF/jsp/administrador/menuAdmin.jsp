@@ -94,19 +94,11 @@
                                 </tr>            
                             </c:forEach>
                         </table>
-                        <%--
-                        genero character varying,
-                    trailer character varying,
-                    faixa_etaria character varying,
-                    diretor character varying,
-                    duracao character varying,
-                    sinopse character varying,
-                    titulo character varying,
-                        --%>
+
                          <a href="Servlet?controller=filme&method=tela_adicionar">Adicionar filme</a>
                 </div>
             
-                
+                <a href="Servlet?controller=administrador&method=logout">Logout</a>
         </div>
     </body>
 </html>
